@@ -1,0 +1,19 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Data
+data/
+
+# Model checkpoints
+checkpoints/
+
+# Results
+results/
+
+# Large files
+*.pth
+*.bin
+*.ckpt
+*.h5
