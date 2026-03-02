@@ -7,3 +7,5 @@ Pillow
 sentencepiece
 protobuf
 scipy
+matplotlib
+seaborn

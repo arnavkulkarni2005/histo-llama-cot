@@ -9,8 +9,6 @@ data/
 # Model checkpoints
 checkpoints/
 
-# Results
-results/
 
 # Large files
 *.pth

@@ -15,10 +15,9 @@ class HistoLlama(nn.Module):
             device_map=DEVICE
         )
         
-        # Enable Gradient Checkpointing for memory saving
         self.llm.gradient_checkpointing_enable()
         
-        # Apply LoRA
+        # Applying LoRA
         if use_lora:
             peft_config = LoraConfig(
                 r=8, lora_alpha=16, lora_dropout=0.05, bias="none", task_type="CAUSAL_LM"
@@ -30,9 +29,8 @@ class HistoLlama(nn.Module):
         self.projector = nn.Linear(512, 2048).to(DEVICE).to(torch.float32)
 
     def forward(self, image_embeds, input_ids, attention_mask, labels=None):
-        # 1. Project image embeddings to LLM space
-        
-        # FIX: Ensure image_embeds is 3D [Batch, 1, 512]
+        # 1. Projecting  image embeddings to LLM space
+    
         if image_embeds.dim() == 2:
             image_embeds = image_embeds.unsqueeze(1)
 
@@ -45,12 +43,9 @@ class HistoLlama(nn.Module):
         # 3. Concatenate: [Image Token] + [Text Tokens]
         combined_embeds = torch.cat([image_visual_tokens, inputs_embeds], dim=1)
         
-        # 4. Adjust Attention Mask (add 1 for the image token)
         ones = torch.ones((attention_mask.shape[0], 1), device=DEVICE)
         combined_mask = torch.cat([ones, attention_mask], dim=1)
 
-        # 5. Forward Pass
-        # We shift labels because we added 1 token at the start
         if labels is not None:
             dummy_labels = torch.full((labels.shape[0], 1), -100, device=DEVICE)
             combined_labels = torch.cat([dummy_labels, labels], dim=1)

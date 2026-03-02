@@ -1,0 +1,24 @@
+2026-03-02 21:53:13,191 - [INFO] - Saved Confusion Matrix Heatmap to results/confusion_matrix_heatmap.png
+2026-03-02 21:53:13,191 - [INFO] - Evaluation Complete. Check the 'results/' directory for paper assets.
+
+==================================================
+ HistoLlama-CoT EVALUATION RESULTS (UNSEEN DATA)
+==================================================
+Overall Accuracy: 0.9660
+
+Classification Report (Precision, Recall, F1-Score):
+              precision    recall  f1-score   support
+
+         ADI       0.99      0.98      0.99       104
+        BACK       0.99      1.00      1.00       100
+         DEB       0.95      0.97      0.96       113
+         LYM       0.99      0.98      0.98       140
+         MUC       0.96      0.97      0.97        78
+         MUS       0.95      0.95      0.95       131
+        NORM       0.96      0.94      0.95        81
+         STR       0.96      0.91      0.93       108
+         TUM       0.95      0.98      0.96       145
+
+    accuracy                           0.97      1000
+   macro avg       0.97      0.97      0.97      1000
+weighted avg       0.97      0.97      0.97      1000

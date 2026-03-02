@@ -21,27 +21,24 @@ def generate_cot_data():
     data = []
     print(f"Scanning {DATA_DIR} for .tif files...")
     
-    # Find all images
     all_files = glob.glob(os.path.join(DATA_DIR, "*", "*.tif"))
     
     if not all_files:
         print("Error: No .tif files found! Check your path.")
         return
 
-    # Shuffle and Subset
     random.shuffle(all_files)
     if SUBSET_SIZE:
         all_files = all_files[:SUBSET_SIZE]
         print(f"Subsetting to {SUBSET_SIZE} images for speed.")
 
     for img_path in all_files:
-        class_name = os.path.basename(os.path.dirname(img_path)) # e.g., "TUM"
+        class_name = os.path.basename(os.path.dirname(img_path)) 
         filename = os.path.basename(img_path)
         
         if class_name in BIO_FEATURES:
             obs, conc = BIO_FEATURES[class_name]
             
-            # Synthetic Chain-of-Thought format
             conversations = [
                 {"role": "user", "content": "<image>\nAnalyze this histology slide."},
                 {"role": "assistant", "content": f"Observation: The image shows {obs}. Conclusion: This is {conc}."}
